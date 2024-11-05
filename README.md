@@ -35,16 +35,20 @@ And then add the following markdown in your quarto file:
 
 for instance:
 
+```markdown
 ```kroki-graphviz
 digraph G { 
   Hello -> World 
 }
 ```
+```
 
+```markdown
 ```kroki-ditaa
 +---------+    +---------+
 |  Hello  |--->|  World  |
 +---------+    +---------+
+```
 ```
 
 Make sure you have `curl` is installed and available in your PATH.
