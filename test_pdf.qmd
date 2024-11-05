@@ -1,0 +1,42 @@
+---
+title: "Kroki diagrams Test"
+filters:
+  - quarto-kroki
+format: pdf
+---
+
+# Test
+
+## GraphViz
+
+```kroki-graphviz
+digraph G { 
+  Hello -> World 
+}
+```
+
+## Svgbob
+
+```kroki-svgbob
++---------+    +---------+
+|  Hello  |--->|  World  |
++---------+    +---------+
+```
+
+## Ditaa
+
+```kroki-ditaa
++---------+    +---------+
+|  Hello  |--->|  World  |
++---------+    +---------+
+```
+
+## BlockDiag
+
+```kroki-blockdiag
+blockdiag {
+  Hello -> World ;
+  Hello [color = "greenyellow"];
+  World [color = "orange"];
+}
+```
