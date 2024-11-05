@@ -43,6 +43,10 @@ digraph G {
 ```
 ````
 
+![](assets/fig_1.svg)
+
+or
+
 ````markdown
 ```kroki-ditaa
 +---------+    +---------+
@@ -50,6 +54,8 @@ digraph G {
 +---------+    +---------+
 ```
 ````
+
+![](assets/fig_3.svg)
 
 Make sure you have `curl` is installed and available in your PATH.
 
