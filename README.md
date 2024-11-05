@@ -1,8 +1,8 @@
 # quarto-kroki 
 
-Render [Kroki](https://kroki.io/) diagrams on [Quarto](https://quarto.org/) documents.
+Render [Kroki](https://kroki.io/) diagrams in [Quarto](https://quarto.org/) documents (HTML and PDF).
 
-This uses the _Kroki HTTP API_ via `curl` doing a _HTTP POST_ request.
+This uses the _Kroki HTTP API_ via `curl`, doing a _POST_ request.
 
 ## Installing
 
