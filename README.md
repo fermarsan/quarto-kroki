@@ -35,29 +35,31 @@ And then add the following markdown in your quarto file:
 
 for instance:
 
-```markdown
+````markdown
 ```kroki-graphviz
 digraph G { 
   Hello -> World 
 }
 ```
-```
+````
 
-```markdown
+````markdown
 ```kroki-ditaa
 +---------+    +---------+
 |  Hello  |--->|  World  |
 +---------+    +---------+
 ```
-```
+````
 
 Make sure you have `curl` is installed and available in your PATH.
 
 ## Examples
 
 There are two source code minimal examples: 
-[test.qmd](test.qmd) _"HTML"_
-[test_pdf.qmd](test_pdf.qmd) _"pdf"_ 
+
+- [test.qmd](test.qmd) _"HTML"_
+
+- [test_pdf.qmd](test_pdf.qmd) _"pdf"_ 
 
 
 ## For PDF output
