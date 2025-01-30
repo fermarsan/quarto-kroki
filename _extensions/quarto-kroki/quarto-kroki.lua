@@ -16,7 +16,7 @@ function CodeBlock(el)
         "--data-raw",
         text
     }
-
+	
     local svg_data = pandoc.pipe("curl", args, "")
 
     if FORMAT:match 'latex' or FORMAT:match 'beamer' then
@@ -35,10 +35,30 @@ function InsertSvgLatex(svg_data)
 	local file = io.open(file_name .. ".svg",'w')
 	file:write(svg_data)
 	file:close()
-	pandoc.pipe("inkscape", { "--export-type=png", "--export-dpi=300", file_name  .. ".svg" }, "")
-	fig = fig + 1
-	return pandoc.Para({pandoc.Image({}, file_name  .. ".png")})
+
+	if os.executable_exists("inkscape") then
+		pandoc.pipe("inkscape", { "--export-type=png", "--export-dpi=300", file_name  .. ".svg" }, "")
+		fig = fig + 1
+		return pandoc.Para({pandoc.Image({}, file_name  .. ".png")})
+	else
+		print("\nError: Inkscape has to be installed and added to PATH.\n")
+		return pandoc.Para({pandoc.Str("Error: Inkscape has to be installed and added to PATH.")})
+	end
+
 end
+
+
+os.platform = function()
+    local sep = package.config:sub(1, 1)
+    if sep == '\\' then
+        return "Windows"
+    elseif sep == '/' then
+        return "Unix/Linux"
+    else
+        return "Unknown OS"
+    end
+end
+
 
 -- Function taken from: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
 -- https://github.com/mokeyish/obsidian-enhancing-export/blob/16cdb17ef673e822e03e6d270aa33b28079774cc/lua/polyfill.lua
@@ -52,7 +72,8 @@ os.mkdir = function(dir)
 	else
 	  os.execute('mkdir -p "' .. dir .. '"')
 	end
-  end
+end
+
 
 -- Function taken from: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
 -- https://github.com/mokeyish/obsidian-enhancing-export/blob/16cdb17ef673e822e03e6d270aa33b28079774cc/lua/polyfill.lua
@@ -66,4 +87,16 @@ os.exists = function(path)
 		local _, _, code = os.execute('test -e "' .. path .. '"')
 		return code == 0
 	end
+end
+
+
+os.executable_exists = function(name)
+    local command
+    if os.platform == "Windows" then
+        command = "where " .. name .. " >nul 2>nul"  -- For Windows
+    else
+        command = "which " .. name .. " > /dev/null 2>&1"  -- For Unix/Linux
+    end
+
+    return os.execute(command)
 end
