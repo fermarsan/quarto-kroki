@@ -4,4 +4,4 @@ version: 0.1.1
 quarto-required: ">=1.4.0"
 contributes:
   filters:
-    - quarto-kroki.lua0.10.1
+    - quarto-kroki.lua

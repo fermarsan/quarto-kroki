@@ -75,18 +75,20 @@ os.mkdir = function(dir)
 end
 
 
--- Function taken from: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
+-- Function modified from: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
 -- https://github.com/mokeyish/obsidian-enhancing-export/blob/16cdb17ef673e822e03e6d270aa33b28079774cc/lua/polyfill.lua
 os.exists = function(path)
+    local command
 	if os.platform == "Windows" then
 		path = string.gsub(path, "/", "\\")
 		path = os.text.toencoding(path)
-		local _, _, code = os.execute('if exist "' .. path .. '" (exit 0) else (exit 1)')
-		return code == 0
+		command = 'if exist "' .. path .. '" (exit 0) else (exit 1)'  -- For Windows
 	else
-		local _, _, code = os.execute('test -e "' .. path .. '"')
-		return code == 0
+		command = 'test -e "' .. path .. '"'  -- For Unix/Linux
 	end
+
+    local _, _, code = os.execute(command)
+    return code == 0
 end
 
 
@@ -98,5 +100,6 @@ os.executable_exists = function(name)
         command = "which " .. name .. " > /dev/null 2>&1"  -- For Unix/Linux
     end
 
-    return os.execute(command)
+    local _, _, code = os.execute(command)
+    return code == 0
 end
