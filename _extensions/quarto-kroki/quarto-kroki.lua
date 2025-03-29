@@ -2,14 +2,17 @@ local fig = 1
 
 function CodeBlock(el)
     -- Obtiene el lenguaje del bloque de código
-    local language = el.classes[1] or "plaintext" -- "plaintext" if no language defined
+    local language = el.classes[1] or el.identifier or "plaintext" -- "plaintext" if no language defined
+    -- Elimina las llaves si están presentes
+    language = string.gsub(language, "^%{(.+)%}$", "%1")
+    
+    -- Solo procesa bloques que empiecen con kroki-
+    if not string.match(language, "^kroki%-") then
+        return el
+    end
+    
     local text = el.text
-    local diagram_kind = "none"
-
-    -- separate the kind of diagram from the codeblock's language name
-    if string.sub(language, 1, 6) == "kroki-" then
-        diagram_kind = string.sub(language, 7)
-    end     
+    local diagram_kind = string.sub(language, 7)
 
     local args = {
         "https://kroki.io/" .. diagram_kind .. "/svg",
@@ -41,8 +44,8 @@ function InsertSvgLatex(svg_data)
 		fig = fig + 1
 		return pandoc.Para({pandoc.Image({}, file_name  .. ".png")})
 	else
-		print("\nError: Inkscape has to be installed and added to PATH.\n")
-		return pandoc.Para({pandoc.Str("Error: Inkscape has to be installed and added to PATH.")})
+		print("\nError: Inkscape tiene que estar instalado y añadido al PATH.\n")
+		return pandoc.Para({pandoc.Str("Error: Inkscape tiene que estar instalado y añadido al PATH.")})
 	end
 
 end
@@ -60,7 +63,7 @@ os.platform = function()
 end
 
 
--- Function taken from: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
+-- Función tomada de: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
 -- https://github.com/mokeyish/obsidian-enhancing-export/blob/16cdb17ef673e822e03e6d270aa33b28079774cc/lua/polyfill.lua
 os.mkdir = function(dir)
 	if os.exists(dir) then
@@ -75,16 +78,16 @@ os.mkdir = function(dir)
 end
 
 
--- Function modified from: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
+-- Función modificada de: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
 -- https://github.com/mokeyish/obsidian-enhancing-export/blob/16cdb17ef673e822e03e6d270aa33b28079774cc/lua/polyfill.lua
 os.exists = function(path)
     local command
 	if os.platform == "Windows" then
 		path = string.gsub(path, "/", "\\")
 		path = os.text.toencoding(path)
-		command = 'if exist "' .. path .. '" (exit 0) else (exit 1)'  -- For Windows
+		command = 'if exist "' .. path .. '" (exit 0) else (exit 1)'  -- Para Windows
 	else
-		command = 'test -e "' .. path .. '"'  -- For Unix/Linux
+		command = 'test -e "' .. path .. '"'  -- Para Unix/Linux
 	end
 
     local _, _, code = os.execute(command)
@@ -95,9 +98,9 @@ end
 os.executable_exists = function(name)
     local command
     if os.platform == "Windows" then
-        command = "where " .. name .. " >nul 2>nul"  -- For Windows
+        command = "where " .. name .. " >nul 2>nul"  -- Para Windows
     else
-        command = "which " .. name .. " > /dev/null 2>&1"  -- For Unix/Linux
+        command = "which " .. name .. " > /dev/null 2>&1"  -- Para Unix/Linux
     end
 
     local _, _, code = os.execute(command)
