@@ -1,12 +1,12 @@
 local fig = 1
 
 function CodeBlock(el)
-    -- Obtiene el lenguaje del bloque de código
+    -- Get the language of the code block
     local language = el.classes[1] or el.identifier or "plaintext" -- "plaintext" if no language defined
-    -- Elimina las llaves si están presentes
+    -- Strip curly braces if present
     language = string.gsub(language, "^%{(.+)%}$", "%1")
     
-    -- Solo procesa bloques que empiecen con kroki-
+    -- Only process blocks that start with kroki-
     if not string.match(language, "^kroki%-") then
         return el
     end
@@ -63,7 +63,7 @@ os.platform = function()
 end
 
 
--- Función tomada de: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
+-- Function taken from: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
 -- https://github.com/mokeyish/obsidian-enhancing-export/blob/16cdb17ef673e822e03e6d270aa33b28079774cc/lua/polyfill.lua
 os.mkdir = function(dir)
 	if os.exists(dir) then
@@ -78,16 +78,16 @@ os.mkdir = function(dir)
 end
 
 
--- Función modificada de: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
+-- Function modified from: github.com/mokeyish/obsidian-enhancing-export/lua/polyfill.lua
 -- https://github.com/mokeyish/obsidian-enhancing-export/blob/16cdb17ef673e822e03e6d270aa33b28079774cc/lua/polyfill.lua
 os.exists = function(path)
     local command
 	if os.platform == "Windows" then
 		path = string.gsub(path, "/", "\\")
 		path = os.text.toencoding(path)
-		command = 'if exist "' .. path .. '" (exit 0) else (exit 1)'  -- Para Windows
+		command = 'if exist "' .. path .. '" (exit 0) else (exit 1)'  -- For Windows
 	else
-		command = 'test -e "' .. path .. '"'  -- Para Unix/Linux
+		command = 'test -e "' .. path .. '"'  -- For Unix/Linux
 	end
 
     local _, _, code = os.execute(command)
@@ -98,9 +98,9 @@ end
 os.executable_exists = function(name)
     local command
     if os.platform == "Windows" then
-        command = "where " .. name .. " >nul 2>nul"  -- Para Windows
+        command = "where " .. name .. " >nul 2>nul"  -- For Windows
     else
-        command = "which " .. name .. " > /dev/null 2>&1"  -- Para Unix/Linux
+        command = "which " .. name .. " > /dev/null 2>&1"  -- For Unix/Linux
     end
 
     local _, _, code = os.execute(command)
