@@ -44,8 +44,8 @@ function InsertSvgLatex(svg_data)
 		fig = fig + 1
 		return pandoc.Para({pandoc.Image({}, file_name  .. ".png")})
 	else
-		print("\nError: Inkscape tiene que estar instalado y añadido al PATH.\n")
-		return pandoc.Para({pandoc.Str("Error: Inkscape tiene que estar instalado y añadido al PATH.")})
+		print("\nError: Inkscape has to be installed and added to PATH.\n")
+		return pandoc.Para({pandoc.Str("Error: Inkscape has to be installed and added to PATH.")})
 	end
 
 end
