@@ -5,7 +5,35 @@ filters:
 format: html
 ---
 
-# Test
+# `quarto-kroki` 
+
+Render [Kroki](https://kroki.io/) diagrams in [Quarto](https://quarto.org/) documents (HTML and PDF).
+
+
+## Installing
+
+```bash
+quarto add fermarsan/quarto-kroki
+```
+
+## Usage
+
+````markdown
+---
+title: "My Document"
+filters:
+  - quarto-kroki
+---
+
+
+```kroki-graphviz
+digraph G { 
+  Hello -> World 
+}
+```
+````
+
+# Examples
 
 ## GraphViz
 
