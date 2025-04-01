@@ -1,15 +1,18 @@
 local fig = 1
 
 function CodeBlock(el)
-    -- Obtiene el lenguaje del bloque de código
-    local language = el.classes[1] or "plaintext" -- "plaintext" if no language defined
+    -- Get the language of the code block
+    local language = el.classes[1] or el.identifier or "plaintext" -- "plaintext" if no language defined
+    -- Strip curly braces if present
+    language = string.gsub(language, "^%{(.+)%}$", "%1")
+    
+    -- Only process blocks that start with kroki-
+    if not string.match(language, "^kroki%-") then
+        return el
+    end
+    
     local text = el.text
-    local diagram_kind = "none"
-
-    -- separate the kind of diagram from the codeblock's language name
-    if string.sub(language, 1, 6) == "kroki-" then
-        diagram_kind = string.sub(language, 7)
-    end     
+    local diagram_kind = string.sub(language, 7)
 
     local args = {
         "https://kroki.io/" .. diagram_kind .. "/svg",
