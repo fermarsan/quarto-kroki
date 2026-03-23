@@ -22,6 +22,7 @@ function CodeBlock(el)
 	
     local svg_data = pandoc.pipe("curl", args, "")
 
+    -- print("---FORMAT---: ", FORMAT)
     if FORMAT:match 'latex' or FORMAT:match 'beamer' then
         return InsertSvgLatex(svg_data)
     else

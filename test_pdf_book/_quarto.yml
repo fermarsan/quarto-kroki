@@ -1,0 +1,23 @@
+project:
+  type: book
+filters:
+  - ../_extensions/quarto-kroki/quarto-kroki.lua
+book:
+  title: "Kroki diagrams Test"
+  date: "23/03/2026"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - Chapter_1.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: scrreprt

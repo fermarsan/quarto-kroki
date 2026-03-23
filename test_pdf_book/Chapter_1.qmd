@@ -1,0 +1,82 @@
+# `quarto-kroki` 
+
+Render [Kroki](https://kroki.io/) diagrams in [Quarto](https://quarto.org/) documents (HTML and PDF).
+
+
+## Installing
+
+```bash
+quarto add fermarsan/quarto-kroki
+```
+
+## Usage
+
+````markdown
+---
+title: "My Document"
+filters:
+  - quarto-kroki
+---
+
+
+```kroki-graphviz
+digraph G { 
+  Hello -> World 
+}
+```
+````
+
+# Examples
+
+## GraphViz
+
+@fig-HW-graphviz shows the "Hello World" examples using Kroki and GraphViz.
+
+::: {#fig-HW-graphviz fig-cap="Hello World in GraphViz"}
+```kroki-graphviz
+digraph G { 
+  Hello -> World 
+}
+```
+:::
+
+
+## Svgbob
+
+@fig-HW-svgbob shows the "Hello World" examples using Kroki and Svgbob.
+
+::: {#fig-HW-svgbob fig-cap="Hello World in svgbob"}
+```kroki-svgbob
++---------+    +---------+
+|  Hello  |--->|  World  |
++---------+    +---------+
+```
+:::
+
+
+## Ditaa
+
+@fig-HW-Ditta shows the "Hello World" examples using Kroki and Ditaa.
+
+::: {#fig-HW-Ditta fig-cap="Hello World in Ditta"}
+```kroki-ditaa
++---------+    +---------+
+|  Hello  |--->|  World  |
++---------+    +---------+
+```
+:::
+
+
+## BlockDiag
+
+@fig-HW-BlockDiag shows the "Hello World" examples using Kroki and BlockDiag.
+
+::: {#fig-HW-BlockDiag fig-cap="Hello World in BlockDiag"}
+```kroki-blockdiag
+blockdiag {
+  Hello -> World ;
+  Hello [color = "greenyellow"];
+  World [color = "orange"];
+}
+```
+:::
