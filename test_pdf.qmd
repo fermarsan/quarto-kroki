@@ -5,7 +5,7 @@ filters:
 format: pdf
 ---
 
-# `quarto-kroki` 
+# `quarto-kroki`
 
 Render [Kroki](https://kroki.io/) diagrams in [Quarto](https://quarto.org/) documents (HTML and PDF).
 
@@ -27,8 +27,8 @@ filters:
 
 
 ```kroki-graphviz
-digraph G { 
-  Hello -> World 
+digraph G {
+  Hello -> World
 }
 ```
 ````
@@ -38,8 +38,8 @@ digraph G {
 ## GraphViz
 
 ```kroki-graphviz
-digraph G { 
-  Hello -> World 
+digraph G {
+  Hello -> World
 }
 ```
 
@@ -61,7 +61,7 @@ digraph G {
 
 ## BlockDiag
 
-```kroki-blockdiag
+```{.kroki-blockdiag #fig:hello-world}
 blockdiag {
   Hello -> World ;
   Hello [color = "greenyellow"];
