@@ -5,12 +5,12 @@ function CodeBlock(el)
     local language = el.classes[1] or el.identifier or "plaintext" -- "plaintext" if no language defined
     -- Strip curly braces if present
     language = string.gsub(language, "^%{(.+)%}$", "%1")
-    
+
     -- Only process blocks that start with kroki-
     if not string.match(language, "^kroki%-") then
         return el
     end
-    
+
     local text = el.text
     local diagram_kind = string.sub(language, 7)
 
@@ -19,7 +19,7 @@ function CodeBlock(el)
         "--data-raw",
         text
     }
-	
+
     local svg_data = pandoc.pipe("curl", args, "")
 
     -- print("---FORMAT---: ", FORMAT)
@@ -41,13 +41,13 @@ function InsertSvgLatex(svg_data)
 	file:close()
 
 	if os.executable_exists("inkscape") then
-		pandoc.pipe("inkscape", { "--export-type=png", "--export-dpi=300", file_name  .. ".svg" }, "")
-		fig = fig + 1
-		return pandoc.Para({pandoc.Image({}, file_name  .. ".png")})
-	else
-		print("\nError: Inkscape has to be installed and added to PATH.\n")
-		return pandoc.Para({pandoc.Str("Error: Inkscape has to be installed and added to PATH.")})
-	end
+        pandoc.pipe("inkscape", { "--export-type=pdf", file_name .. ".svg" }, "")
+        fig = fig + 1
+        return pandoc.Para({ pandoc.Image({}, file_name .. ".pdf") })
+    else
+        print("\nError: Inkscape has to be installed and added to PATH.\n")
+        return pandoc.Para({ pandoc.Str("Error: Inkscape has to be installed and added to PATH.") })
+    end
 
 end
 
