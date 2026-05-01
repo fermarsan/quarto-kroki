@@ -82,3 +82,24 @@ format: pdf
 ```
 
 In that case make sure you have `inkscape` installed and available in your PATH.
+
+For PDF output the cross reference name will be the name of the resultant images, for instance, this example:
+
+````markdown
+```{.kroki-ditaa #fig:hello-world} 
++---------+    +---------+
+|  Hello  |--->|  World  |
++---------+    +---------+
+```
+````
+
+will create the files:
+
+```
+assets/
+├── hello-world.svg
+└── hello-world.pdf
+
+
+```
+
