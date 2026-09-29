@@ -32,8 +32,18 @@ function CodeBlock(el)
     local text = el.text
     local diagram_kind = string.sub(language, 7)
 
+    -- Read service URL from document metadata (kroki.serviceUrl), default to kroki.io
+    local krokiServiceUrl = "https://kroki.io"
+    local metaUrl = quarto.metadata.get("kroki.serviceUrl")
+    if metaUrl then
+        local url = pandoc.utils.stringify(metaUrl):match("^%s*(.-)%s*$")
+        if url ~= "" then
+            krokiServiceUrl = url:gsub("/$", "")
+        end
+    end
+
     local args = {
-        "https://kroki.io/" .. diagram_kind .. "/svg",
+        krokiServiceUrl .. "/" .. diagram_kind .. "/svg",
         "--data-raw",
         text
     }
